@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 @class YTPlayerView;
 
@@ -104,7 +105,7 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * Callback invoked when setting up the webview to allow custom colours so it fits in
  * with app color schemes. If a transparent view is required specify clearColor and
  * the code will handle the opacity etc.
- *
+ * 
  * @param playerView The YTPlayerView instance where the error has occurred.
  * @return A color object that represents the background color of the webview.
  */
@@ -118,13 +119,13 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  *
  * The default implementation does not display any custom loading views so the player will display
  * a blank view with a background color of (-playerViewPreferredWebViewBackgroundColor:).
- *
- * Note that the custom loading view WILL NOT be displayed after iframe is loaded. It will be
+ * 
+ * Note that the custom loading view WILL NOT be displayed after iframe is loaded. It will be 
  * handled by YouTube iframe API. This callback is just intended to tell users the view is actually
  * doing something while iframe is being loaded, which will take some time if users are in poor networks.
  *
  * @param playerView The YTPlayerView instance where the error has occurred.
- * @return A view object that will be displayed while YouTube iframe API is being loaded.
+ * @return A view object that will be displayed while YouTube iframe API is being loaded. 
  *         Pass nil to display no custom loading view. Default implementation returns nil.
  */
 - (nullable UIView *)playerViewPreferredInitialLoadingView:(nonnull YTPlayerView *)playerView;
@@ -138,9 +139,9 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * YTPlayerView::loadWithPlaylistId: or their variants to set the video or playlist
  * to populate the view with.
  */
-@interface YTPlayerView : UIView<UIWebViewDelegate>
+@interface YTPlayerView : UIView<WKNavigationDelegate>
 
-@property(nonatomic, strong, nullable, readonly) UIWebView *webView;
+@property(nonatomic, strong, nullable, readonly) WKWebView *webView;
 
 /** A delegate to be notified on playback events. */
 @property(nonatomic, weak, nullable) id<YTPlayerViewDelegate> delegate;
@@ -150,8 +151,8 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * This is a convenience method for calling YTPlayerView::loadPlayerWithVideoId:withPlayerVars:
  * without player variables.
  *
- * This method reloads the entire contents of the UIWebView and regenerates its HTML contents.
- * To change the currently loaded video without reloading the entire UIWebView, use the
+ * This method reloads the entire contents of the WKWebView and regenerates its HTML contents.
+ * To change the currently loaded video without reloading the entire WKWebView, use the
  * YTPlayerView::cueVideoById:startSeconds:suggestedQuality: family of methods.
  *
  * @param videoId The YouTube video ID of the video to load in the player view.
@@ -164,8 +165,8 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * This is a convenience method for calling YTPlayerView::loadWithPlaylistId:withPlayerVars:
  * without player variables.
  *
- * This method reloads the entire contents of the UIWebView and regenerates its HTML contents.
- * To change the currently loaded video without reloading the entire UIWebView, use the
+ * This method reloads the entire contents of the WKWebView and regenerates its HTML contents.
+ * To change the currently loaded video without reloading the entire WKWebView, use the
  * YTPlayerView::cuePlaylistByPlaylistId:index:startSeconds:suggestedQuality:
  * family of methods.
  *
@@ -187,8 +188,8 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * both strings and integers are valid values. The full list of parameters is defined at:
  *   https://developers.google.com/youtube/player_parameters?playerVersion=HTML5.
  *
- * This method reloads the entire contents of the UIWebView and regenerates its HTML contents.
- * To change the currently loaded video without reloading the entire UIWebView, use the
+ * This method reloads the entire contents of the WKWebView and regenerates its HTML contents.
+ * To change the currently loaded video without reloading the entire WKWebView, use the
  * YTPlayerView::cueVideoById:startSeconds:suggestedQuality: family of methods.
  *
  * @param videoId The YouTube video ID of the video to load in the player view.
@@ -210,8 +211,8 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * both strings and integers are valid values. The full list of parameters is defined at:
  *   https://developers.google.com/youtube/player_parameters?playerVersion=HTML5.
  *
- * This method reloads the entire contents of the UIWebView and regenerates its HTML contents.
- * To change the currently loaded video without reloading the entire UIWebView, use the
+ * This method reloads the entire contents of the WKWebView and regenerates its HTML contents.
+ * To change the currently loaded video without reloading the entire WKWebView, use the
  * YTPlayerView::cuePlaylistByPlaylistId:index:startSeconds:suggestedQuality:
  * family of methods.
  *
